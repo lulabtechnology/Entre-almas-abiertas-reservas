@@ -8,16 +8,25 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "ea-bg": "#020617",
-        "ea-bg-soft": "#020617",
-        "ea-card": "rgba(15, 23, 42, 0.96)",
-        "ea-border": "rgba(148, 163, 184, 0.35)",
+        // Fondo general más azul cósmico
+        "ea-bg": "#02071b",
+        "ea-bg-soft": "#021029",
+
+        // Tarjetas con sensación de cristal azul profundo
+        "ea-card": "rgba(2, 10, 36, 0.96)",
+        "ea-border": "rgba(165, 189, 255, 0.45)",
+
+        // Dorados suaves para que hagan match con el logo
         "ea-gold": "#F6D48F",
         "ea-gold-soft": "#F9E4B6",
-        "ea-soft": "#E5E7EB",
-        "ea-soft-muted": "#9CA3AF",
-        "ea-accent": "#A78BFA",
-        "ea-accent-soft": "#C4B5FD"
+
+        // Texto casi blanco pero ligeramente azulado
+        "ea-soft": "#F9FAFB",
+        "ea-soft-muted": "#C7D2FE",
+
+        // Azules/aguas de luz
+        "ea-accent": "#7BD5FF",
+        "ea-accent-soft": "#B6E6FF"
       },
       fontFamily: {
         display: ["var(--font-display)", "serif"],
@@ -28,13 +37,17 @@ module.exports = {
       },
       boxShadow: {
         "ea-soft":
-          "0 18px 60px rgba(15, 23, 42, 0.95), 0 0 0 1px rgba(15, 23, 42, 0.9)"
+          "0 22px 70px rgba(3, 7, 30, 0.95), 0 0 0 1px rgba(15, 23, 42, 0.9)"
       },
       backgroundImage: {
+        // Fondo principal: azul cósmico con luz celeste y violeta,
+        // inspirado en el logo y en la web entre-almas-abiertas
         "ea-hero":
-          "radial-gradient(circle at top, rgba(248, 250, 252, 0.12), transparent 55%), radial-gradient(circle at bottom, rgba(30, 64, 175, 0.32), #020617)",
+          "radial-gradient(circle at 15% 0%, rgba(123, 213, 255, 0.38), transparent 60%), radial-gradient(circle at 85% 120%, rgba(102, 126, 234, 0.75), #02071b)",
+
+        // Halo dorado muy suave encima
         "ea-radial":
-          "radial-gradient(circle at top, rgba(246, 212, 143, 0.26), transparent 60%)"
+          "radial-gradient(circle at top, rgba(246, 212, 143, 0.35), transparent 65%)"
       }
     }
   },
