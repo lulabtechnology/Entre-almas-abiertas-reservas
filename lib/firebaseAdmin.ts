@@ -5,9 +5,7 @@ let app: App | null = null;
 let db: Firestore | null = null;
 
 /**
- * Devuelve una instancia única de Firestore (Admin).
- * Solo se ejecuta de verdad cuando se llama por primera vez
- * desde un endpoint /api.
+ * Devuelve una única instancia de Firestore (Admin).
  */
 export function getDb(): Firestore {
   if (db) {
@@ -19,12 +17,16 @@ export function getDb(): Firestore {
   const privateKeyEnv = process.env.FIREBASE_PRIVATE_KEY;
 
   if (!projectId || !clientEmail || !privateKeyEnv) {
+    console.error({
+      hasProjectId: !!projectId,
+      hasClientEmail: !!clientEmail,
+      hasPrivateKey: !!privateKeyEnv
+    });
     throw new Error(
       "Faltan variables de entorno de Firebase (FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, FIREBASE_PRIVATE_KEY)."
     );
   }
 
-  // El private_key del JSON viene con "\n" dentro de la cadena
   const privateKey = privateKeyEnv.replace(/\\n/g, "\n");
 
   if (!getApps().length) {
