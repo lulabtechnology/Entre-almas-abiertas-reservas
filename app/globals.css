@@ -2,115 +2,404 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: dark;
-}
-
-/* Reset muy suave */
+/* RESET BÁSICO */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  max-width: 100%;
 }
 
 body {
-  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+/* PALETA AUREYA (LOGO) */
+:root {
+  --space-deep: #020424;
+  --space-mid: #083366;
+  --space-soft: #12539d;
+
+  --aureya-pink: #f5a7e5;
+  --aureya-pink-soft: #ffcaee;
+
+  --aureya-teal: #39d3e3;
+  --aureya-teal-soft: #72e4f0;
+
+  --aureya-gold: #f6e4a7;
+  --aureya-gold-soft: #fdf4c9;
+
+  --text-main: #fffafc;
+  --text-muted: #c3ceea;
+
+  --card-bg: rgba(3, 9, 40, 0.9);
+  --card-border: rgba(246, 228, 167, 0.55);
+}
+
+/* FONDO CIELO ESTRELLADO */
+.bg-space {
   min-height: 100vh;
-  text-rendering: optimizeLegibility;
-}
-
-/* Contenedor reutilizable para secciones */
-.section-container {
-  width: 100%;
-  max-width: 1120px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
-}
-
-@media (min-width: 640px) {
-  .section-container {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .section-container {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-}
-
-/* Tarjetas con efecto cristal azul (match con fondo/logo) */
-.glass-card {
-  border-radius: 1.75rem;
-  border: 1px solid rgba(165, 189, 255, 0.45);
   background:
-    radial-gradient(circle at top left, rgba(123, 213, 255, 0.12), transparent 60%),
-    rgba(3, 10, 40, 0.92);
-  box-shadow:
-    0 22px 70px rgba(3, 7, 30, 0.95),
-    0 0 0 1px rgba(15, 23, 42, 0.9);
-  backdrop-filter: blur(18px);
+    radial-gradient(circle at 15% 0%, rgba(122, 192, 255, 0.6) 0, transparent 45%),
+    radial-gradient(circle at 85% 10%, rgba(245, 167, 229, 0.6) 0, transparent 45%),
+    radial-gradient(circle at 20% 80%, rgba(57, 211, 227, 0.6) 0, transparent 50%),
+    linear-gradient(180deg, var(--space-deep) 0%, var(--space-mid) 50%, #020420 100%);
+  color: var(--text-main);
+  position: relative;
+  overflow-x: hidden;
 }
 
-/* Pastilla para subtítulos tipo “acompañamiento humano” */
-.badge-pill {
-  display: inline-flex;
+/* Estrellitas */
+.bg-space::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, #ffffffdd 0, transparent 55%),
+    radial-gradient(1.5px 1.5px at 70% 15%, #ffffffaa 0, transparent 55%),
+    radial-gradient(1.6px 1.6px at 40% 80%, #ffffffbb 0, transparent 55%),
+    radial-gradient(1px 1px at 10% 90%, #ffffff99 0, transparent 55%);
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.text-main {
+  color: var(--text-main);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.font-sans {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.page-shell {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3.5rem 1.25rem;
+}
+
+/* NAVBAR (por si luego la quieres usar) */
+.navbar {
+  display: flex;
   align-items: center;
-  gap: 0.5rem;
-  border-radius: 9999px;
-  padding: 0.35rem 0.85rem;
-  font-size: 0.7rem;
+  justify-content: space-between;
+  gap: 1.75rem;
+  padding: 0.9rem 1.25rem;
+  margin: 0 auto 1.8rem auto;
+  max-width: 1120px;
+  border-radius: 999px;
+  border: 1px solid rgba(246, 228, 167, 0.55);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(245, 167, 229, 0.35), transparent 60%),
+    radial-gradient(circle at 100% 0%, rgba(57, 211, 227, 0.3), transparent 60%),
+    rgba(2, 7, 34, 0.96);
+  backdrop-filter: blur(18px);
+  position: sticky;
+  top: 0.75rem;
+  z-index: 40;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo-mark {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.nav-logo-mark img {
+  height: 42px;
+  width: auto;
+  border-radius: 999px;
+  box-shadow: 0 0 22px rgba(245, 167, 229, 0.75);
+}
+
+.nav-title-main {
+  font-size: 1.15rem;
+  font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  border: 1px solid rgba(249, 250, 251, 0.18);
-  background:
-    radial-gradient(circle at top, rgba(123, 213, 255, 0.12), transparent 55%),
-    rgba(2, 7, 27, 0.85);
+  color: var(--aureya-gold-soft);
 }
 
-/* Orbes de luz decorativos en el hero (azules + dorados) */
-.hero-orb {
+.nav-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* NAV LINKS */
+.nav-links {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 0.25rem;
+  transition: color 0.18s ease;
+}
+
+.nav-link::after {
+  content: "";
   position: absolute;
-  border-radius: 9999px;
-  filter: blur(60px);
-  opacity: 0.55;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    var(--aureya-pink),
+    var(--aureya-gold),
+    var(--aureya-teal)
+  );
+  transition: width 0.22s ease;
 }
 
-.hero-orb--gold {
-  width: 280px;
-  height: 280px;
-  background: radial-gradient(circle, rgba(246, 212, 143, 0.9), transparent 60%);
+.nav-link:hover {
+  color: #ffffff;
 }
 
-.hero-orb--lilac {
-  width: 320px;
-  height: 320px;
-  background: radial-gradient(circle, rgba(102, 126, 234, 0.9), transparent 60%);
+.nav-link:hover::after {
+  width: 100%;
 }
 
-.hero-orb--soft {
-  width: 420px;
-  height: 420px;
-  background: radial-gradient(circle, rgba(123, 213, 255, 0.35), transparent 65%);
+.nav-cta-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
-/* Animación flotante muy suave para algunos elementos */
-@keyframes float-soft {
-  0% {
-    transform: translateY(0px);
+/* BOTÓN GRADIENTE */
+.btn-gradient {
+  border-radius: 999px;
+  border: 1px solid rgba(253, 244, 201, 0.8);
+  padding: 0.55rem 1.4rem;
+  font-size: 0.86rem;
+  cursor: pointer;
+  color: #040b1a;
+  background-image: linear-gradient(
+    130deg,
+    var(--aureya-gold-soft),
+    var(--aureya-pink),
+    var(--aureya-teal-soft)
+  );
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 0 26px rgba(255, 204, 255, 0.65);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+.btn-gradient:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 34px rgba(255, 215, 255, 0.9);
+  filter: brightness(1.07);
+}
+
+/* SECCIONES */
+.section {
+  margin-top: 3.2rem;
+}
+
+.section-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--aureya-gold-soft);
+  margin-bottom: 0.6rem;
+}
+
+.section-title {
+  font-size: clamp(1.9rem, 3vw, 2.4rem);
+  font-weight: 600;
+  margin-bottom: 0.9rem;
+}
+
+.section-lead {
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 40rem;
+}
+
+/* CARDS */
+.card-soft {
+  border-radius: 1.8rem;
+  border: 1px solid var(--card-border);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(245, 167, 229, 0.28), transparent 55%),
+    radial-gradient(circle at 100% 100%, rgba(57, 211, 227, 0.28), transparent 55%),
+    var(--card-bg);
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.8);
+  padding: 1.9rem 2rem;
+}
+
+/* HERO GRID (si la usas luego) */
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 2.7rem;
+  align-items: center;
+  margin-top: 2.4rem;
+}
+
+/* FORM CONTACTO / RESERVA */
+.form-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 2rem;
+  margin-top: 1.7rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0.9rem;
+}
+
+.form-field label {
+  font-size: 0.84rem;
+  color: var(--aureya-gold-soft);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.form-field input,
+.form-field textarea,
+.form-field select {
+  border-radius: 0.95rem;
+  border: 1px solid rgba(195, 206, 234, 0.55);
+  background: rgba(5, 13, 52, 0.88);
+  padding: 0.75rem 0.9rem;
+  font-size: 0.9rem;
+  color: var(--text-main);
+  outline: none;
+}
+
+.form-field input:focus,
+.form-field textarea:focus,
+.form-field select:focus {
+  border-color: var(--aureya-teal);
+  box-shadow: 0 0 0 1px rgba(57, 211, 227, 0.6);
+}
+
+.form-hint {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* FOOTER */
+.footer {
+  max-width: 1120px;
+  margin: 3rem auto 0 auto;
+  padding: 1.4rem 1.25rem 2.2rem 1.25rem;
+  border-top: 1px solid rgba(246, 228, 167, 0.4);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.9rem;
+}
+
+/* Texto dorado para nombre y marca */
+.gold-text {
+  background: linear-gradient(
+    130deg,
+    var(--aureya-gold-soft),
+    var(--aureya-pink-soft),
+    var(--aureya-teal-soft)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 600;
+}
+
+/* Amarillo suave para frases clave */
+.highlight-yellow {
+  color: #ffe899;
+  font-weight: 500;
+}
+
+/* Redes sociales (footer) */
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  align-items: center;
+}
+
+.social-link {
+  font-size: 0.8rem;
+  color: var(--aureya-gold-soft);
+  text-decoration: none;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid rgba(246, 228, 167, 0.5);
+  background: rgba(3, 10, 47, 0.9);
+  transition: background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.social-link:hover {
+  background: linear-gradient(
+    130deg,
+    var(--aureya-pink),
+    var(--aureya-gold),
+    var(--aureya-teal)
+  );
+  color: #040814;
+  box-shadow: 0 0 20px rgba(255, 210, 255, 0.6);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
   }
-  50% {
-    transform: translateY(-8px);
+
+  .nav-links {
+    justify-content: flex-start;
+    row-gap: 0.35rem;
   }
-  100% {
-    transform: translateY(0px);
+
+  .nav-cta-wrap {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .page-shell {
+    padding-top: 1rem;
   }
 }
 
-.float-soft {
-  animation: float-soft 9s ease-in-out infinite;
+@media (max-width: 600px) {
+  .card-soft {
+    padding: 1.6rem 1.4rem;
+  }
 }
