@@ -5,6 +5,62 @@ import { useState, FormEvent, useMemo } from "react";
 const HOURLY_RATE = 60;
 const HOURS = Array.from({ length: 12 }, (_, i) => 8 + i); // 8 → 19
 
+const DAY_NAMES = [
+  "Domingo",
+  "Lunes",
+  "Martes",
+  "Miércoles",
+  "Jueves",
+  "Viernes",
+  "Sábado"
+];
+
+const MONTH_NAMES = [
+  "enero",
+  "febrero",
+  "marzo",
+  "abril",
+  "mayo",
+  "junio",
+  "julio",
+  "agosto",
+  "septiembre",
+  "octubre",
+  "noviembre",
+  "diciembre"
+];
+
+type DateOption = {
+  value: string; // YYYY-MM-DD
+  label: string; // Ej: "Lunes · 2 de diciembre 2025"
+};
+
+function getNextDateOptions(count: number): DateOption[] {
+  const base = new Date();
+  base.setHours(0, 0, 0, 0);
+
+  const options: DateOption[] = [];
+
+  for (let i = 0; i < count; i++) {
+    const d = new Date(base);
+    d.setDate(base.getDate() + i);
+
+    const year = d.getFullYear();
+    const month = (d.getMonth() + 1).toString().padStart(2, "0");
+    const day = d.getDate().toString().padStart(2, "0");
+
+    const value = `${year}-${month}-${day}`;
+
+    const label = `${DAY_NAMES[d.getDay()]} · ${d.getDate()} de ${
+      MONTH_NAMES[d.getMonth()]
+    } ${year}`;
+
+    options.push({ value, label });
+  }
+
+  return options;
+}
+
 function formatHour(h: number) {
   return `${h.toString().padStart(2, "0")}:00`;
 }
@@ -27,6 +83,9 @@ export default function ReservaPage() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const total = useMemo(() => HOURLY_RATE * duracionHoras, [duracionHoras]);
+
+  // Generamos el menú de días (por ejemplo próximos 30 días)
+  const dateOptions = useMemo(() => getNextDateOptions(30), []);
 
   function handleFechaChange(value: string) {
     setFecha(value);
@@ -107,7 +166,7 @@ export default function ReservaPage() {
             {/* Card con formulario */}
             <section className="card-soft">
               <form onSubmit={handleSubmit}>
-                {/* Primera fila: nombre y edad */}
+                {/* Nombre y edad */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="form-field">
                     <label>Nombre completo *</label>
@@ -186,14 +245,21 @@ export default function ReservaPage() {
 
                 {/* Fecha / hora / duración */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  {/* FECHA CON MENÚ DESPLEGABLE */}
                   <div className="form-field">
                     <label>Fecha de la sesión *</label>
-                    <input
-                      type="date"
+                    <select
                       value={fecha}
                       onChange={(e) => handleFechaChange(e.target.value)}
                       required
-                    />
+                    >
+                      <option value="">Selecciona un día</option>
+                      {dateOptions.map((opt) => (
+                        <option key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </option>
+                      ))}
+                    </select>
                   </div>
 
                   <div className="form-field">
@@ -291,7 +357,7 @@ export default function ReservaPage() {
                   </div>
                 </div>
 
-                {/* Mensajes de error / éxito */}
+                {/* Mensajes error / éxito */}
                 {errorMessage && (
                   <div
                     style={{
