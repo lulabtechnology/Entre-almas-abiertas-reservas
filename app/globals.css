@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+/* Reset muy suave */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  text-rendering: optimizeLegibility;
+}
+
+/* Contenedor reutilizable para secciones (mismo ancho en toda la web) */
+.section-container {
+  width: 100%;
+  max-width: 1120px; /* ~7xl */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.25rem; /* 5 */
+  padding-right: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .section-container {
+    padding-left: 1.5rem; /* 6 */
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-container {
+    padding-left: 2rem; /* 8 */
+    padding-right: 2rem;
+  }
+}
+
+/* Tarjetas con efecto cristal suave */
+.glass-card {
+  border-radius: 1.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background:
+    radial-gradient(circle at top left, rgba(248, 250, 252, 0.04), transparent 55%),
+    rgba(15, 23, 42, 0.9);
+  box-shadow:
+    0 18px 60px rgba(15, 23, 42, 0.95),
+    0 0 0 1px rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(18px);
+}
+
+/* Pastilla para subtítulos tipo “acompañamiento humano” */
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border: 1px solid rgba(249, 250, 251, 0.18);
+  background: radial-gradient(circle at top, rgba(248, 250, 252, 0.06), transparent 55%);
+}
+
+/* Orbes de luz decorativos en el hero */
+.hero-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(60px);
+  opacity: 0.55;
+}
+
+.hero-orb--gold {
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, rgba(246, 212, 143, 0.85), transparent 60%);
+}
+
+.hero-orb--lilac {
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(196, 181, 253, 0.9), transparent 60%);
+}
+
+.hero-orb--soft {
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(248, 250, 252, 0.14), transparent 65%);
+}
+
+/* Animación flotante muy suave para algunos elementos */
+@keyframes float-soft {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.float-soft {
+  animation: float-soft 9s ease-in-out infinite;
+}
