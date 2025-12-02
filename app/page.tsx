@@ -84,7 +84,6 @@ export default function ReservaPage() {
 
   const total = useMemo(() => HOURLY_RATE * duracionHoras, [duracionHoras]);
 
-  // Generamos el menú de días (por ejemplo próximos 30 días)
   const dateOptions = useMemo(() => getNextDateOptions(30), []);
 
   function handleFechaChange(value: string) {
@@ -123,10 +122,53 @@ export default function ReservaPage() {
     setStatus("submitting");
 
     try {
-      // Aquí luego conectaremos con Firestore y /api/reservas.
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const whatsappFinal = whatsapp && whatsapp.trim() !== "" ? whatsapp : telefono;
 
+      const res = await fetch("/api/reservas", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nombre,
+          edad,
+          email,
+          telefono,
+          whatsapp: whatsappFinal,
+          comentario,
+          fecha,
+          horaInicio,
+          duracionHoras
+        })
+      });
+
+      let data: any = null;
+      try {
+        data = await res.json();
+      } catch {
+        // nada
+      }
+
+      if (res.status === 409) {
+        setStatus("error");
+        setErrorMessage(
+          data?.message ||
+            "Ya existe una reserva activa para ese día y esa hora. Elige otro horario."
+        );
+        return;
+      }
+
+      if (!res.ok) {
+        setStatus("error");
+        setErrorMessage(
+          data?.message ||
+            "No pudimos registrar tu reserva en este momento. Intenta de nuevo en unos minutos."
+        );
+        return;
+      }
+
+      // Éxito
       setStatus("success");
+      setErrorMessage(null);
+
       setEdad("");
       setTelefono("");
       setWhatsapp("");
@@ -136,9 +178,10 @@ export default function ReservaPage() {
       setDuracionHoras(1);
       setIsWeekend(false);
     } catch (err: any) {
+      console.error(err);
       setStatus("error");
       setErrorMessage(
-        err?.message || "Ocurrió un error al intentar registrar tu reserva."
+        "Ocurrió un error inesperado al intentar registrar tu reserva. Intenta de nuevo."
       );
     }
   }
@@ -245,7 +288,7 @@ export default function ReservaPage() {
 
                 {/* Fecha / hora / duración */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  {/* FECHA CON MENÚ DESPLEGABLE */}
+                  {/* Fecha con menú desplegable */}
                   <div className="form-field">
                     <label>Fecha de la sesión *</label>
                     <select
