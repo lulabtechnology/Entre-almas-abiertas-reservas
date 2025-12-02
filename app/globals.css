@@ -19,40 +19,40 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Contenedor reutilizable para secciones (mismo ancho en toda la web) */
+/* Contenedor reutilizable para secciones */
 .section-container {
   width: 100%;
-  max-width: 1120px; /* ~7xl */
+  max-width: 1120px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1.25rem; /* 5 */
+  padding-left: 1.25rem;
   padding-right: 1.25rem;
 }
 
 @media (min-width: 640px) {
   .section-container {
-    padding-left: 1.5rem; /* 6 */
+    padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
 }
 
 @media (min-width: 1024px) {
   .section-container {
-    padding-left: 2rem; /* 8 */
+    padding-left: 2rem;
     padding-right: 2rem;
   }
 }
 
-/* Tarjetas con efecto cristal suave */
+/* Tarjetas con efecto cristal azul (match con fondo/logo) */
 .glass-card {
   border-radius: 1.75rem;
-  border: 1px solid rgba(148, 163, 184, 0.35);
+  border: 1px solid rgba(165, 189, 255, 0.45);
   background:
-    radial-gradient(circle at top left, rgba(248, 250, 252, 0.04), transparent 55%),
-    rgba(15, 23, 42, 0.9);
+    radial-gradient(circle at top left, rgba(123, 213, 255, 0.12), transparent 60%),
+    rgba(3, 10, 40, 0.92);
   box-shadow:
-    0 18px 60px rgba(15, 23, 42, 0.95),
-    0 0 0 1px rgba(15, 23, 42, 0.85);
+    0 22px 70px rgba(3, 7, 30, 0.95),
+    0 0 0 1px rgba(15, 23, 42, 0.9);
   backdrop-filter: blur(18px);
 }
 
@@ -67,10 +67,12 @@ body {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   border: 1px solid rgba(249, 250, 251, 0.18);
-  background: radial-gradient(circle at top, rgba(248, 250, 252, 0.06), transparent 55%);
+  background:
+    radial-gradient(circle at top, rgba(123, 213, 255, 0.12), transparent 55%),
+    rgba(2, 7, 27, 0.85);
 }
 
-/* Orbes de luz decorativos en el hero */
+/* Orbes de luz decorativos en el hero (azules + dorados) */
 .hero-orb {
   position: absolute;
   border-radius: 9999px;
@@ -81,19 +83,19 @@ body {
 .hero-orb--gold {
   width: 280px;
   height: 280px;
-  background: radial-gradient(circle, rgba(246, 212, 143, 0.85), transparent 60%);
+  background: radial-gradient(circle, rgba(246, 212, 143, 0.9), transparent 60%);
 }
 
 .hero-orb--lilac {
   width: 320px;
   height: 320px;
-  background: radial-gradient(circle, rgba(196, 181, 253, 0.9), transparent 60%);
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.9), transparent 60%);
 }
 
 .hero-orb--soft {
   width: 420px;
   height: 420px;
-  background: radial-gradient(circle, rgba(248, 250, 252, 0.14), transparent 65%);
+  background: radial-gradient(circle, rgba(123, 213, 255, 0.35), transparent 65%);
 }
 
 /* Animación flotante muy suave para algunos elementos */
